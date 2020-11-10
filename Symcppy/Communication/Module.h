@@ -2,8 +2,8 @@
 #include <string>
 #include <vector>
 
-#include "PyEnums.h"
-#include "Utils.h"
+#include "Helpers/PyEnums.h"
+#include "Helpers/PyEnums.h"
 #include "FunctionDescriptor.h"
 
 class Module

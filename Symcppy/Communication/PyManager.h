@@ -2,8 +2,8 @@
 #include <vector>
 
 #include "Module.h"
-#include "PyEnums.h"
-#include "Utils.h"
+#include "Helpers/PyEnums.h"
+#include "Helpers/Utils.h"
 
 class PyManager
 {
