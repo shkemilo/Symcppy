@@ -150,7 +150,6 @@
     <ClCompile Include="Communication\FunctionDescriptor.cpp" />
     <ClCompile Include="Communication\Module.cpp" />
     <ClCompile Include="Communication\PyManager.cpp" />
-    <ClCompile Include="Helpers\Utils.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -39,8 +39,5 @@
     <ClCompile Include="Communication\FunctionDescriptor.cpp">
       <Filter>Communication</Filter>
     </ClCompile>
-    <ClCompile Include="Helpers\Utils.cpp">
-      <Filter>Helpers</Filter>
-    </ClCompile>
   </ItemGroup>
 </Project>
