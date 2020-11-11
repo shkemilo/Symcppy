@@ -11,18 +11,17 @@ public:
 	enum EFunction
 	{
 		Invalid=0,
-		Solver,
-		FunctionPlotter,
-		CalculusSolver,
 		Count
 	};
 
 	virtual EModule GetModuleEnum() const = 0;
 	std::string GetName() const;
 
-	FunctionResult CallFunction(FunctionIndex functionIndex, ArgCount argCount, const va_list& args) const;
+	FunctionResult CallFunction(FunctionIndex functionIndex, ArgCount argCount,va_list& args) const;
 
 protected:
+	std::vector<const FunctionDescriptor*> m_Functions;
+
 	Module(const std::string& name) : m_Name(name) { }
 	virtual ~Module() { };
 
@@ -31,7 +30,6 @@ protected:
 private:
 	const std::string m_Name;
 
-	std::vector<const FunctionDescriptor*> m_Functions;
 
 };
 

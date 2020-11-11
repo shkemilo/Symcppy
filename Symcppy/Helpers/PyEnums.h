@@ -15,6 +15,7 @@ enum class EStatus
 enum class EModule
 {
 	Test = 0,
+	FunctionModules,
 	Count,
 	Invalid
 };
