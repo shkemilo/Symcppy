@@ -9,8 +9,8 @@ public:
 	{
 		Zeroes=0,
 		ValueAt,
-		Invalid,
-		Count
+		Count,
+		Invalid
 	};
 	Solver(const std::string& name);
 	/*

@@ -7,10 +7,7 @@ public:
 	FunctionZeroes();
 	~FunctionZeroes();
 protected:
-	bool checkValidArgTypes(ArgCount,va_list&) const override;
  	FunctionResult Execute(ArgCount argCount,va_list& args) const override;
-private:
-	static std::vector<std::string> argumentTypes;
 };
 
 
@@ -20,9 +17,6 @@ public:
 	FunctionValueAt();
 	~FunctionValueAt();
 protected:
-	bool checkValidArgTypes(ArgCount, va_list&) const override;
 	FunctionResult Execute(ArgCount, va_list&) const override;
-private:
-	static std::vector<std::string> argumentTypes;
 };
 

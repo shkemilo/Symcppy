@@ -1,7 +1,6 @@
 
 #include "Solver.h"
 #include"SolverDescriptors.h"
-#include<stdarg.h>
 Solver::Solver(const std::string& name):Module(name)
 {
 	this->m_Functions.push_back(new FunctionZeroes());

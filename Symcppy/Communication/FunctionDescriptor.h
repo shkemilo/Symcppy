@@ -7,7 +7,7 @@
 class FunctionDescriptor
 {
 public:
-	FunctionDescriptor(const std::string& name, ArgCount argCount, const std::vector<std::string>& argTypes);
+	FunctionDescriptor(const std::string& name, ArgCount argCount);
 
 	virtual FunctionResult Run(ArgCount argCount, va_list& args) const;
 
@@ -18,11 +18,9 @@ public:
 protected:
 	virtual FunctionResult Execute(ArgCount argCount,va_list& args) const=0;
 	const ArgCount m_ArgCount;
-	const std::vector<std::string> m_ArgTypes;
-	virtual bool checkValidArgTypes(ArgCount,va_list&) const = 0;
+	std::vector<std::string> m_ArgTypes;
+	 bool checkValidArgTypes(ArgCount, va_list&) const;
 private:
-	
-
 	const std::string m_Name;
 
 };
