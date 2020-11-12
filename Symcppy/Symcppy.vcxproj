@@ -78,9 +78,11 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);../External/libs</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);../External/libs</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -117,6 +119,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>../Symcppy; ../External/PythonIncludes</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -131,6 +134,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>../Symcppy; ../External/PythonIncludes</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -142,6 +146,7 @@
   <ItemGroup>
     <ClInclude Include="Communication\FunctionDescriptor.h" />
     <ClInclude Include="Communication\Module.h" />
+    <ClInclude Include="Communication\ModuleFactory.h" />
     <ClInclude Include="Communication\PyManager.h" />
     <ClInclude Include="Helpers\PyEnums.h" />
     <ClInclude Include="Helpers\Utils.h" />
@@ -149,6 +154,7 @@
   <ItemGroup>
     <ClCompile Include="Communication\FunctionDescriptor.cpp" />
     <ClCompile Include="Communication\Module.cpp" />
+    <ClCompile Include="Communication\ModuleFactory.cpp" />
     <ClCompile Include="Communication\PyManager.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>

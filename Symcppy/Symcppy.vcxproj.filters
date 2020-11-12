@@ -27,6 +27,9 @@
     <ClInclude Include="Helpers\PyEnums.h">
       <Filter>Helpers</Filter>
     </ClInclude>
+    <ClInclude Include="Communication\ModuleFactory.h">
+      <Filter>Communication</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -37,6 +40,9 @@
       <Filter>Communication</Filter>
     </ClCompile>
     <ClCompile Include="Communication\FunctionDescriptor.cpp">
+      <Filter>Communication</Filter>
+    </ClCompile>
+    <ClCompile Include="Communication\ModuleFactory.cpp">
       <Filter>Communication</Filter>
     </ClCompile>
   </ItemGroup>

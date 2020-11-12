@@ -8,6 +8,7 @@ enum class EStatus
 	UndefinedModule,
 	UndefinedFunction,
 	InvalidArgCount,
+	InvalidArgTypes,
 	Count,
 	Invalid
 };

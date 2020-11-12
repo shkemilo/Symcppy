@@ -8,23 +8,18 @@ FunctionDescriptor::FunctionDescriptor(const std::string& name, ArgCount argCoun
 FunctionResult FunctionDescriptor::Run(ArgCount argCount,va_list& args) const
 {
     if (argCount != m_ArgCount)
+    {
         return FunctionResult{ EStatus::InvalidArgCount, nullptr };
-    else if (!this->checkValidArgTypes(argCount, args)) return FunctionResult{ EStatus::Invalid, nullptr };
-    else return Execute(argCount, args);
+    } 
+    if (!checkValidArgTypes(argCount, args))
+    {
+        return FunctionResult{ EStatus::InvalidArgTypes, nullptr };
+    }   
+
+    return Execute(argCount, args);
 }
 
 std::string FunctionDescriptor::GetName() const
 {
     return m_Name;
-}
-
-bool FunctionDescriptor::checkValidArgTypes(ArgCount argCount, va_list& args) const
-{
-    if (argCount != m_ArgCount) return false;
-    va_start(args, argCount);
-    for (int i = 0; i < argCount; i++)
-    {
-        if (m_ArgTypes.at(i) != (va_arg(args, std::string))) return false;
-    }
-    return true;
 }

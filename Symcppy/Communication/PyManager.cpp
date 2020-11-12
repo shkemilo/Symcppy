@@ -1,6 +1,8 @@
 #include "PyManager.h"
 #include <stdarg.h>
 
+#include "ModuleFactory.h"
+
 PyManager* PyManager::ms_Instance{ nullptr };
 
 PyManager* PyManager::GetInstance()
@@ -17,7 +19,9 @@ FunctionResult PyManager::CallFunction(EModule module, FunctionIndex functionInd
 {
     Module* mod = GetModule(module);
     if (mod == nullptr)
+    {
         return FunctionResult{ EStatus::UndefinedModule, nullptr };
+    }
 
     va_list args;
     va_start(args, argCount);
@@ -29,13 +33,21 @@ FunctionResult PyManager::CallFunction(EModule module, FunctionIndex functionInd
 
 Module* PyManager::GetModule(EModule module) const
 {
-    return m_Modules[static_cast<int>(module)];
+    if (module >= EModule::Count)
+    {
+        return nullptr;
+    }
+
+    return m_Modules[static_cast<int>(module)].get();
 }
 
-void PyManager::AddModule(Module* module)
+void PyManager::AddModule(EModule module)
 {
-    if (std::find(m_Modules.begin(), m_Modules.end(), module) == m_Modules.end())
+    std::unique_ptr<Module> mod = std::move(ModuleFactory::CreateModule(module));
+    if (std::find(m_Modules.begin(), m_Modules.end(), mod) == m_Modules.end())
+    {
         return;
+    }
 
-    m_Modules.push_back(module);
+    m_Modules.push_back(std::move(mod));
 }
