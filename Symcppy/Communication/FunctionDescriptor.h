@@ -21,7 +21,7 @@ protected:
 	virtual bool checkValidArgTypes(ArgCount argCount, va_list& args) const { return true; }
 
     const ArgCount m_ArgCount;
-	const std::vector<std::string> m_ArgTypes;
+	std::vector<std::string> m_ArgTypes;
 
 private:
 	const std::string m_Name;
