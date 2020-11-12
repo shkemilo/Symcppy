@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include <memory>
 
 #include "Module.h"
 #include "Helpers/PyEnums.h"
@@ -9,19 +10,20 @@ class PyManager
 {
 public:
 	PyManager(PyManager&) = delete;
-	void operator=(PyManager&) = delete;
+	PyManager& operator=(PyManager&) = delete;
 
 	static PyManager* GetInstance();
 
 	FunctionResult CallFunction(EModule module, FunctionIndex functionIndex, ArgCount argCount, ...) const;
 
 	Module* GetModule(EModule module) const;
-	void AddModule(Module* module);
+	void AddModule(EModule module);
 
 private:
-	PyManager() { };
+	PyManager() : m_Modules(static_cast<int>(EModule::Count)) { };
 
 	static PyManager* ms_Instance;
-	std::vector<Module*> m_Modules;
+
+	std::vector<std::unique_ptr<Module>> m_Modules;
 
 };
