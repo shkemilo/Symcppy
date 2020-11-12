@@ -1,5 +1,6 @@
 #include "Module.h"
 #include "../Helpers/Utils.h"
+#include"FunctionDescriptor.h"
 
 std::string Module::GetName() const
 {
@@ -21,3 +22,4 @@ void Module::AddFunction(const FunctionDescriptor* function,EFunction typeOfFunc
 
     m_Functions.push_back(function);
 }
+*/

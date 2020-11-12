@@ -2,6 +2,7 @@
 #include <stdarg.h>
 
 #include "ModuleFactory.h"
+#include"Module.h"
 
 PyManager* PyManager::ms_Instance{ nullptr };
 

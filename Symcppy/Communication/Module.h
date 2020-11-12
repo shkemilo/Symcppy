@@ -3,7 +3,9 @@
 #include <vector>
 
 #include"../Helpers/PyEnums.h"
-#include "FunctionDescriptor.h"
+#include"Helpers/Utils.h"
+
+class FunctionDescriptor;
 
 class Module
 {

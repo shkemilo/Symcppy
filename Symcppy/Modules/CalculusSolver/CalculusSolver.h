@@ -1,6 +1,7 @@
 #pragma once
 #include"Communication/Module.h"
-class CalculusSolver:public Module
+
+class CalculusSolver : public Module
 {
 public:
 	enum EFunction
@@ -10,7 +11,10 @@ public:
 		Count,
 		Invalid
 	};
+
 	CalculusSolver(const std::string& name);
+
 	EModule GetModuleEnum() const override;
+
 };
 
