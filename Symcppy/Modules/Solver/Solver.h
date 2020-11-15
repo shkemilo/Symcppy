@@ -1,11 +1,14 @@
-#include"Communication/Module.h"
+#pragma once
+#include "Communication/Module.h"
+
+#include "Helpers/PyEnums.h"
 
 class Solver : public Module
 {
 public:
 	enum EFunction
 	{
-		Zeroes=0,
+		Zeroes = 0,
 		ValueAt,
 		Count,
 		Invalid
@@ -13,8 +16,5 @@ public:
 
 	Solver(const std::string& name);
 
-	/*
-	EStatus GetZeroes(std::vector<double>& zeroes);
-	EStatus GetValueAt(const std::string& function,const double& point,double& value);
-	*/
+	EModule GetModuleEnum() const override;
 };

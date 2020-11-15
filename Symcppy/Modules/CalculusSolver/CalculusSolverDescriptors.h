@@ -1,23 +1,22 @@
 #pragma once
-#include"Communication/FunctionDescriptor.h"
+#include "Communication/FunctionDescriptor.h"
 
-class Derivate : public FunctionDescriptor
+class FunctionDerivative : public FunctionDescriptor
 {
 public:
-	Derivate();
-	~Derivate();
+	FunctionDerivative();
 
 protected:
 	FunctionResult Execute(ArgCount argCount, va_list& args) const override;
+
 };
 
-
-class Limit : public FunctionDescriptor
+class FunctionLimit : public FunctionDescriptor
 {
 public:
-	Limit();
-	~Limit();
+	FunctionLimit();
 
 protected:
 	FunctionResult Execute(ArgCount argCount, va_list& args) const override;
+
 };

@@ -12,6 +12,17 @@ FunctionResult Module::CallFunction(FunctionIndex functionIndex, ArgCount argCou
     const FunctionDescriptor* function = m_Functions[functionIndex];
     return (function == nullptr ? FunctionResult{ EStatus::UndefinedFunction, nullptr } : function->Run(argCount, args));
 }
+
+Module::~Module()
+{
+    while (!m_Functions.empty())
+    {
+        const FunctionDescriptor* function = m_Functions.back();
+        m_Functions.pop_back();
+        delete function;
+    }
+}
+
 /*
 void Module::AddFunction(const FunctionDescriptor* function,EFunction typeOfFunction)
 {

@@ -6,7 +6,7 @@ class CalculusSolver : public Module
 public:
 	enum EFunction
 	{
-		Derivate=0,
+		Derivative = 0,
 		Limit,
 		Count,
 		Invalid

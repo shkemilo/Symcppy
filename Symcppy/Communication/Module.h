@@ -25,7 +25,7 @@ public:
 
 	FunctionResult CallFunction(FunctionIndex functionIndex, ArgCount argCount, va_list& args) const;
 
-	virtual ~Module() { };
+	virtual ~Module();
 
 protected:
 	Module(const std::string& name) : m_Name(name) { }
