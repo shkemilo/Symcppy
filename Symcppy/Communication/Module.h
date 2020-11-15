@@ -2,9 +2,10 @@
 #include <string>
 #include <vector>
 
-#include "Helpers/PyEnums.h"
-#include "Helpers/PyEnums.h"
-#include "FunctionDescriptor.h"
+#include"../Helpers/PyEnums.h"
+#include"Helpers/Utils.h"
+
+class FunctionDescriptor;
 
 class Module
 {
@@ -13,7 +14,7 @@ class Module
 public:
 	enum EFunction
 	{
-		Invalid,
+		Invalid=0,
 		Count
 	};
 
@@ -29,12 +30,13 @@ public:
 protected:
 	Module(const std::string& name) : m_Name(name) { }
 
-	void AddFunction(const FunctionDescriptor* function);
+	void AddFunction(const FunctionDescriptor* function, EFunction typeOfFunction);
+
+	std::vector<const FunctionDescriptor*> m_Functions;
 
 private:
 	const std::string m_Name;
 
-	std::vector<const FunctionDescriptor*> m_Functions;
 
 };
 
