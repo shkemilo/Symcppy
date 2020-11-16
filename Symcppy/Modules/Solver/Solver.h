@@ -14,7 +14,7 @@ public:
 		Invalid
 	};
 
-	Solver(const std::string& name);
+	Solver();
 
 	EModule GetModuleEnum() const override;
 };

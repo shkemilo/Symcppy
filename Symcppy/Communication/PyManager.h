@@ -2,10 +2,9 @@
 #include <vector>
 #include <memory>
 
-#include "../Helpers/PyEnums.h"
-#include "../Helpers/Utils.h"
-
-class Module;
+#include "Module.h"
+#include "Helpers/PyEnums.h"
+#include "Helpers/Utils.h"
 
 class PyManager
 {
@@ -17,7 +16,7 @@ public:
 
 	FunctionResult CallFunction(EModule module, FunctionIndex functionIndex, ArgCount argCount, ...) const;
 
-	Module* GetModule(EModule module) const;
+	const Module* GetModule(EModule module) const;
 	void AddModule(EModule module);
 
 private:

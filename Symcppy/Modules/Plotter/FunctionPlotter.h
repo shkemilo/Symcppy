@@ -11,7 +11,9 @@ public:
 		Invalid
 	};
 
-	FunctionPlotter(const std::string& name);
+	FunctionPlotter();
+
+	EModule GetModuleEnum() const override;
 
 };
 

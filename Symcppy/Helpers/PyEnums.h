@@ -17,6 +17,7 @@ enum class EModule
 {
 	Solver = 0,
 	CalculusSolver,
+	FunctionPlotter,
 	Count,
 	Invalid
 };

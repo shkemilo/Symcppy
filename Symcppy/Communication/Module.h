@@ -2,8 +2,8 @@
 #include <string>
 #include <vector>
 
-#include"../Helpers/PyEnums.h"
-#include"Helpers/Utils.h"
+#include "Helpers/PyEnums.h"
+#include "Helpers/Utils.h"
 
 class FunctionDescriptor;
 
@@ -14,8 +14,8 @@ class Module
 public:
 	enum EFunction
 	{
-		Invalid=0,
-		Count
+		Count = 0,
+		Invalid
 	};
 
 	Module& operator=(Module&) = delete;

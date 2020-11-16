@@ -2,7 +2,7 @@
 #include <stdarg.h>
 
 #include "ModuleFactory.h"
-#include"Module.h"
+#include "Module.h"
 
 PyManager* PyManager::ms_Instance{ nullptr };
 
@@ -18,7 +18,7 @@ PyManager* PyManager::GetInstance()
 
 FunctionResult PyManager::CallFunction(EModule module, FunctionIndex functionIndex, ArgCount argCount, ...) const
 {
-    Module* mod = GetModule(module);
+    const Module* mod = GetModule(module);
     if (mod == nullptr)
     {
         return FunctionResult{ EStatus::UndefinedModule, nullptr };
@@ -32,7 +32,7 @@ FunctionResult PyManager::CallFunction(EModule module, FunctionIndex functionInd
     return result;
 }
 
-Module* PyManager::GetModule(EModule module) const
+const Module* PyManager::GetModule(EModule module) const
 {
     if (module >= EModule::Count)
     {
@@ -49,6 +49,6 @@ void PyManager::AddModule(EModule module)
     {
         return;
     }
-
-    m_Modules.push_back(std::move(mod));
+    
+    m_Modules[static_cast<int>(module)] = std::move(mod);
 }

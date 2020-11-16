@@ -3,8 +3,9 @@
 #include "CalculusSolverDescriptors.h"
 #include "Helpers/PyEnums.h"
 
-CalculusSolver::CalculusSolver(const std::string& name) :Module(name) 
+CalculusSolver::CalculusSolver() : Module("CalculusSolver") 
 {
+	m_Functions.reserve(EFunction::Count);
 	m_Functions.push_back(new FunctionDerivative());
 	m_Functions.push_back(new FunctionLimit());
 }

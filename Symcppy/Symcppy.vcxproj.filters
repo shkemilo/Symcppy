@@ -16,6 +16,12 @@
     <Filter Include="Modules\Solver">
       <UniqueIdentifier>{17f6a3ab-7e49-4803-9fb8-dbc34c9ec41c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Modules\Plotter">
+      <UniqueIdentifier>{d7c540b2-67bb-456d-aba2-29fc9f117ead}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Interface">
+      <UniqueIdentifier>{858d983b-7010-4241-87ea-c3dfc8f83aef}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Communication\Module.h">
@@ -48,6 +54,18 @@
     <ClInclude Include="Modules\Solver\SolverDescriptors.h">
       <Filter>Modules\Solver</Filter>
     </ClInclude>
+    <ClInclude Include="Modules\Plotter\FunctionPlotterDescriptors.h">
+      <Filter>Modules\Plotter</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Plotter\FunctionPlotter.h">
+      <Filter>Modules\Plotter</Filter>
+    </ClInclude>
+    <ClInclude Include="Interface\FunctionAnalyzer.h">
+      <Filter>Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="Interface\Function.h">
+      <Filter>Interface</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -74,6 +92,18 @@
     </ClCompile>
     <ClCompile Include="Modules\Solver\SolverDescriptors.cpp">
       <Filter>Modules\Solver</Filter>
+    </ClCompile>
+    <ClCompile Include="Modules\Plotter\FunctionPlotterDescriptors.cpp">
+      <Filter>Modules\Plotter</Filter>
+    </ClCompile>
+    <ClCompile Include="Modules\Plotter\FunctionPlotter.cpp">
+      <Filter>Modules\Plotter</Filter>
+    </ClCompile>
+    <ClCompile Include="Interface\FunctionAnalyzer.cpp">
+      <Filter>Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="Interface\Function.cpp">
+      <Filter>Interface</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

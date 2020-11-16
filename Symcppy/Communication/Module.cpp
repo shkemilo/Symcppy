@@ -1,6 +1,7 @@
 #include "Module.h"
-#include "../Helpers/Utils.h"
-#include"FunctionDescriptor.h"
+
+#include "Helpers/Utils.h"
+#include "FunctionDescriptor.h"
 
 std::string Module::GetName() const
 {

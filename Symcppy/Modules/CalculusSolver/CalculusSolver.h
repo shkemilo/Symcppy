@@ -12,7 +12,7 @@ public:
 		Invalid
 	};
 
-	CalculusSolver(const std::string& name);
+	CalculusSolver();
 
 	EModule GetModuleEnum() const override;
 

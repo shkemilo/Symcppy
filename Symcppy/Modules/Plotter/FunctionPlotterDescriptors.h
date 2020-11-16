@@ -1,11 +1,10 @@
 #pragma once
 #include "Communication/FunctionDescriptor.h"
 
-class Plot : public FunctionDescriptor
+class FunctionPlot : public FunctionDescriptor
 {
 public:
-	Plot();
-	~Plot();
+	FunctionPlot();
 
 protected:
 	FunctionResult Execute(ArgCount argCount, va_list& args) const override;
