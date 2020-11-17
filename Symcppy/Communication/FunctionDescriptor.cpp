@@ -15,7 +15,7 @@ FunctionResult FunctionDescriptor::Run(ArgCount argCount,va_list& args) const
     {
         return FunctionResult{ EStatus::InvalidArgCount, nullptr };
     } 
-    if (!checkValidArgTypes(argCount, args))
+    if (!CheckValidArgTypes(argCount, args))
     {
         return FunctionResult{ EStatus::InvalidArgTypes, nullptr };
     }   

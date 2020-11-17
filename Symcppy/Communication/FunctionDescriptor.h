@@ -19,11 +19,9 @@ public:
 	virtual ~FunctionDescriptor() { };
 
 protected:
-	virtual PyObject* PrepeareArguments(ArgCount, va_list& args) const = 0;
-
-	virtual FunctionResult ConvertResult(PyObject* result) const = 0;
-
 	virtual bool CheckValidArgTypes(ArgCount argCount, va_list& args) const { return true; }
+	virtual PyObject* PrepeareArguments(ArgCount, va_list& args) const = 0;
+	virtual FunctionResult ConvertResult(PyObject* result) const = 0;
 
     const ArgCount m_ArgCount;
 	std::vector<std::string> m_ArgTypes;
