@@ -44,11 +44,10 @@ const Module* PyManager::GetModule(EModule module) const
 
 void PyManager::AddModule(EModule module)
 {
-    std::unique_ptr<Module> mod = std::move(ModuleFactory::CreateModule(module));
-    if (std::find(m_Modules.begin(), m_Modules.end(), mod) == m_Modules.end())
+    if (module >= EModule::Count || m_Modules[static_cast<int>(module)] != nullptr)
     {
         return;
     }
     
-    m_Modules[static_cast<int>(module)] = std::move(mod);
+    m_Modules[static_cast<int>(module)] = std::move(ModuleFactory::CreateModule(module));
 }

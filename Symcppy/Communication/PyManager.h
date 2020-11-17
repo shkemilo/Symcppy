@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include <memory>
+#include <Python.h>
 
 #include "Module.h"
 #include "Helpers/PyEnums.h"
@@ -20,7 +21,8 @@ public:
 	void AddModule(EModule module);
 
 private:
-	PyManager() : m_Modules(static_cast<int>(EModule::Count)) { };
+	PyManager() : m_Modules(static_cast<int>(EModule::Count)) { Py_Initialize(); };
+	~PyManager() { Py_Finalize(); }
 
 	static PyManager* ms_Instance;
 

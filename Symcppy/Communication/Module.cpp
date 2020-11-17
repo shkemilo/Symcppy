@@ -14,6 +14,11 @@ FunctionResult Module::CallFunction(FunctionIndex functionIndex, ArgCount argCou
     return (function == nullptr ? FunctionResult{ EStatus::UndefinedFunction, nullptr } : function->Run(argCount, args));
 }
 
+PyObject* Module::GetPythonModule() const
+{
+    return m_PythonModule;
+}
+
 Module::~Module()
 {
     while (!m_Functions.empty())
@@ -22,6 +27,12 @@ Module::~Module()
         m_Functions.pop_back();
         delete function;
     }
+}
+
+Module::Module(const std::string& name) : m_Name(name)
+{
+    PyObject* moduleName = PyUnicode_FromString(m_Name.c_str());
+    m_PythonModule = PyImport_Import(moduleName);
 }
 
 /*

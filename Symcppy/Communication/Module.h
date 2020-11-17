@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <vector>
+#include <Python.h>
 
 #include "Helpers/PyEnums.h"
 #include "Helpers/Utils.h"
@@ -25,18 +26,21 @@ public:
 
 	FunctionResult CallFunction(FunctionIndex functionIndex, ArgCount argCount, va_list& args) const;
 
+	PyObject* GetPythonModule() const;
+
 	virtual ~Module();
 
 protected:
-	Module(const std::string& name) : m_Name(name) { }
+	Module(const std::string& name);
 
 	void AddFunction(const FunctionDescriptor* function, EFunction typeOfFunction);
 
 	std::vector<const FunctionDescriptor*> m_Functions;
 
+	PyObject* m_PythonModule;
+
 private:
 	const std::string m_Name;
-
 
 };
 

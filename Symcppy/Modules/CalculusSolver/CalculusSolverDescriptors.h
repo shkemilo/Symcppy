@@ -4,19 +4,23 @@
 class FunctionDerivative : public FunctionDescriptor
 {
 public:
-	FunctionDerivative();
+	FunctionDerivative(Module* owner);
 
 protected:
-	FunctionResult Execute(ArgCount argCount, va_list& args) const override;
+	bool CheckValidArgTypes(ArgCount argCount, va_list& args) const override;
+	PyObject* PrepeareArguments(ArgCount argCount, va_list& args) const override;
+	FunctionResult ConvertResult(PyObject* result) const override;
 
 };
 
 class FunctionLimit : public FunctionDescriptor
 {
 public:
-	FunctionLimit();
+	FunctionLimit(Module* owner);
 
 protected:
-	FunctionResult Execute(ArgCount argCount, va_list& args) const override;
+	bool CheckValidArgTypes(ArgCount argCount, va_list& args) const override;
+	PyObject* PrepeareArguments(ArgCount argCount, va_list& args) const override;
+	FunctionResult ConvertResult(PyObject* result) const override;
 
 };

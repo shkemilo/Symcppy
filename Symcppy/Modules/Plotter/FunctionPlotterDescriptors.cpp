@@ -2,12 +2,22 @@
 #include <iostream>
 
 // Class: FunctionPlot
-FunctionPlot::FunctionPlot() : FunctionDescriptor("Plot", 1)
+FunctionPlot::FunctionPlot(Module* owner) : FunctionDescriptor(owner, "Plot", 1)
 {
 	m_ArgTypes.push_back("string");
 }
 
-FunctionResult FunctionPlot::Execute(ArgCount argCount, va_list& args) const
+bool FunctionPlot::CheckValidArgTypes(ArgCount argCount, va_list& args) const
 {
-	std::cout << "Plotting a function..." << std::endl;
+	return false;
+}
+
+PyObject* FunctionPlot::PrepeareArguments(ArgCount argCount, va_list& args) const
+{
+	return nullptr;
+}
+
+FunctionResult FunctionPlot::ConvertResult(PyObject* result) const
+{
+	return FunctionResult();
 }
