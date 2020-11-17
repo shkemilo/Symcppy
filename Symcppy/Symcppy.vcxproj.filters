@@ -10,6 +10,18 @@
     <Filter Include="Helpers">
       <UniqueIdentifier>{298ef6b7-40e3-4486-b333-a62fcdb262d0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Modules\CalculusSolver">
+      <UniqueIdentifier>{6edf3708-7448-4d53-8a2b-cca20e995a5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Modules\Solver">
+      <UniqueIdentifier>{17f6a3ab-7e49-4803-9fb8-dbc34c9ec41c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Modules\Plotter">
+      <UniqueIdentifier>{d7c540b2-67bb-456d-aba2-29fc9f117ead}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Interface">
+      <UniqueIdentifier>{858d983b-7010-4241-87ea-c3dfc8f83aef}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Communication\Module.h">
@@ -30,6 +42,30 @@
     <ClInclude Include="Communication\ModuleFactory.h">
       <Filter>Communication</Filter>
     </ClInclude>
+    <ClInclude Include="Modules\CalculusSolver\CalculusSolver.h">
+      <Filter>Modules\CalculusSolver</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\CalculusSolver\CalculusSolverDescriptors.h">
+      <Filter>Modules\CalculusSolver</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Solver\Solver.h">
+      <Filter>Modules\Solver</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Solver\SolverDescriptors.h">
+      <Filter>Modules\Solver</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Plotter\FunctionPlotterDescriptors.h">
+      <Filter>Modules\Plotter</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Plotter\FunctionPlotter.h">
+      <Filter>Modules\Plotter</Filter>
+    </ClInclude>
+    <ClInclude Include="Interface\FunctionAnalyzer.h">
+      <Filter>Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="Interface\Function.h">
+      <Filter>Interface</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -44,6 +80,30 @@
     </ClCompile>
     <ClCompile Include="Communication\ModuleFactory.cpp">
       <Filter>Communication</Filter>
+    </ClCompile>
+    <ClCompile Include="Modules\CalculusSolver\CalculusSolver.cpp">
+      <Filter>Modules\CalculusSolver</Filter>
+    </ClCompile>
+    <ClCompile Include="Modules\CalculusSolver\CalculusSolverDescriptors.cpp">
+      <Filter>Modules\CalculusSolver</Filter>
+    </ClCompile>
+    <ClCompile Include="Modules\Solver\Solver.cpp">
+      <Filter>Modules\Solver</Filter>
+    </ClCompile>
+    <ClCompile Include="Modules\Solver\SolverDescriptors.cpp">
+      <Filter>Modules\Solver</Filter>
+    </ClCompile>
+    <ClCompile Include="Modules\Plotter\FunctionPlotterDescriptors.cpp">
+      <Filter>Modules\Plotter</Filter>
+    </ClCompile>
+    <ClCompile Include="Modules\Plotter\FunctionPlotter.cpp">
+      <Filter>Modules\Plotter</Filter>
+    </ClCompile>
+    <ClCompile Include="Interface\FunctionAnalyzer.cpp">
+      <Filter>Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="Interface\Function.cpp">
+      <Filter>Interface</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

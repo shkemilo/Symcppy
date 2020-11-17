@@ -16,7 +16,7 @@ public:
 
 	FunctionResult CallFunction(EModule module, FunctionIndex functionIndex, ArgCount argCount, ...) const;
 
-	Module* GetModule(EModule module) const;
+	const Module* GetModule(EModule module) const;
 	void AddModule(EModule module);
 
 private:

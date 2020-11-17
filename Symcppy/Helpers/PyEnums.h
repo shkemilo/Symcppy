@@ -15,7 +15,9 @@ enum class EStatus
 
 enum class EModule
 {
-	Test = 0,
+	Solver = 0,
+	CalculusSolver,
+	FunctionPlotter,
 	Count,
 	Invalid
 };

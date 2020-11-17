@@ -1,12 +1,11 @@
 #include "FunctionDescriptor.h"
-#include <stdarg.h>
-
-FunctionDescriptor::FunctionDescriptor(const std::string& name, ArgCount argCount, const std::vector<std::string>& argTypes) : 
-    m_Name(name), m_ArgCount(argCount), m_ArgTypes(argTypes)
+#include<stdarg.h>
+FunctionDescriptor::FunctionDescriptor(const std::string& name, ArgCount argCount) : 
+    m_Name(name), m_ArgCount(argCount)
 {
 }
 
-FunctionResult FunctionDescriptor::Run(ArgCount argCount, va_list& args) const
+FunctionResult FunctionDescriptor::Run(ArgCount argCount,va_list& args) const
 {
     if (argCount != m_ArgCount)
     {

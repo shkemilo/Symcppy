@@ -11,4 +11,5 @@ public:
 
 private:
 	ModuleFactory() = default;
+
 };

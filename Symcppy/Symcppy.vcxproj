@@ -150,13 +150,29 @@
     <ClInclude Include="Communication\PyManager.h" />
     <ClInclude Include="Helpers\PyEnums.h" />
     <ClInclude Include="Helpers\Utils.h" />
+    <ClInclude Include="Interface\Function.h" />
+    <ClInclude Include="Interface\FunctionAnalyzer.h" />
+    <ClInclude Include="Modules\CalculusSolver\CalculusSolver.h" />
+    <ClInclude Include="Modules\CalculusSolver\CalculusSolverDescriptors.h" />
+    <ClInclude Include="Modules\Plotter\FunctionPlotter.h" />
+    <ClInclude Include="Modules\Plotter\FunctionPlotterDescriptors.h" />
+    <ClInclude Include="Modules\Solver\Solver.h" />
+    <ClInclude Include="Modules\Solver\SolverDescriptors.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Communication\FunctionDescriptor.cpp" />
     <ClCompile Include="Communication\Module.cpp" />
     <ClCompile Include="Communication\ModuleFactory.cpp" />
     <ClCompile Include="Communication\PyManager.cpp" />
+    <ClCompile Include="Interface\Function.cpp" />
+    <ClCompile Include="Interface\FunctionAnalyzer.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Modules\CalculusSolver\CalculusSolver.cpp" />
+    <ClCompile Include="Modules\CalculusSolver\CalculusSolverDescriptors.cpp" />
+    <ClCompile Include="Modules\Plotter\FunctionPlotter.cpp" />
+    <ClCompile Include="Modules\Plotter\FunctionPlotterDescriptors.cpp" />
+    <ClCompile Include="Modules\Solver\Solver.cpp" />
+    <ClCompile Include="Modules\Solver\SolverDescriptors.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
