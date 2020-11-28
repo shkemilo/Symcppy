@@ -20,7 +20,12 @@ PyObject* FunctionValueAt::PrepeareArguments(ArgCount argCount, va_list& args) c
 
 FunctionResult FunctionValueAt::ConvertResult(PyObject* result) const
 {
-	return FunctionResult();
+	double* value =new double(PyFloat_AsDouble(result));
+	if (value == nullptr)
+	{
+		return FunctionResult{ EStatus::Error , nullptr };
+	}
+	return FunctionResult{EStatus::Sucess,value};
 }
 
 // Class: FunctionZeroes
@@ -41,6 +46,28 @@ PyObject* FunctionZeroes::PrepeareArguments(ArgCount argCount, va_list& args) co
 
 FunctionResult FunctionZeroes::ConvertResult(PyObject* result) const
 {
-	return FunctionResult();
+	PyObject* item = nullptr;
+	std::vector<double>* zeroes = new std::vector<double>();
+	FunctionResult f{ EStatus::Error,nullptr };
+	int n = PyList_Size(result);
+	if (n < 0)
+	{
+		return f;
+	}
+	for (int i = 0; i < n; i++)
+	{
+		item = PyList_GetItem(result, i);
+		if (!PyFloat_Check(item))
+		{
+			return f;
+		}
+		double element = PyFloat_AsDouble(item);
+		if (element == -1.0 && PyErr_Occurred())
+		{
+			return f;
+		}
+		zeroes->push_back(element);
+	}
+	return FunctionResult{EStatus::Sucess,zeroes};
 }
 
