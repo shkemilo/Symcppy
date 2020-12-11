@@ -75,6 +75,16 @@ EStatus Function::GetLimitAt(double point, double& out) const
 	return temp.result;
 }
 
+EStatus Function::Plot(const std::string& dir) const
+{
+	FunctionResult temp = m_Analyzer.Plot();
+	if (temp.result == EStatus::Sucess)
+	{
+
+	}
+	return temp.result;
+}
+
 bool Function::IsValidFunction() const
 {
 	return true;
