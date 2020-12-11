@@ -20,12 +20,10 @@ PyObject* FunctionDerivative::PrepeareArguments(ArgCount argCount, va_list& args
 
 FunctionResult FunctionDerivative::ConvertResult(PyObject* result) const
 {
-	const char* function = new char[256];
-	std::string fun;
-	Py_ssize_t* size = new Py_ssize_t(256);
+	PyObject* str = PyUnicode_AsEncodedString(result, "utf-8", "#");
+	const char* function = PyBytes_AS_STRING(str);
 	FunctionResult f{ EStatus::Error, nullptr };
-	int status = PyObject_AsCharBuffer(result, &function, size);
-	if (status == -1) return f;
+	Py_XDECREF(str);
 	return FunctionResult{ EStatus::Sucess, (void*)function };
 }
 

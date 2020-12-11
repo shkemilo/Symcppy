@@ -48,7 +48,7 @@ FunctionResult FunctionZeroes::ConvertResult(PyObject* result) const
 {
 	PyObject* item = nullptr;
 	std::vector<double>* zeroes = new std::vector<double>();
-	FunctionResult f{ EStatus::Error,nullptr };
+	FunctionResult f{ EStatus::Error, nullptr };
 	int n = PyList_Size(result);
 	if (n < 0)
 	{
@@ -68,6 +68,6 @@ FunctionResult FunctionZeroes::ConvertResult(PyObject* result) const
 		}
 		zeroes->push_back(element);
 	}
-	return FunctionResult{EStatus::Sucess,zeroes};
+	return FunctionResult{EStatus::Sucess, zeroes};
 }
 
