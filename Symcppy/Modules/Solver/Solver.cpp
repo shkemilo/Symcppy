@@ -6,7 +6,7 @@
 Solver::Solver() : Module("Solver")
 {
 	m_Functions.reserve(EFunction::Count);
-	m_Functions.push_back(new FunctionZeroes(this));
+	m_Functions.push_back(new FunctionZeros(this));
 	m_Functions.push_back(new FunctionValueAt(this));
 }
 

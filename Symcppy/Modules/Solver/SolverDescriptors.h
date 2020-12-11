@@ -1,10 +1,10 @@
 #pragma once
 #include "Communication/FunctionDescriptor.h"
 
-class FunctionZeroes : public FunctionDescriptor
+class FunctionZeros : public FunctionDescriptor
 {
 public:
-	FunctionZeroes(Module* owner);
+	FunctionZeros(Module* owner);
 	
 protected:
 	bool CheckValidArgTypes(ArgCount argCount, va_list& args) const override;
