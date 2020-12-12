@@ -150,6 +150,7 @@
     <ClInclude Include="Communication\PyManager.h" />
     <ClInclude Include="Helpers\PyEnums.h" />
     <ClInclude Include="Helpers\Utils.h" />
+    <ClInclude Include="Interface\AnalysisDescription.h" />
     <ClInclude Include="Interface\Function.h" />
     <ClInclude Include="Interface\FunctionAnalyzer.h" />
     <ClInclude Include="Modules\CalculusSolver\CalculusSolver.h" />
@@ -164,6 +165,7 @@
     <ClCompile Include="Communication\Module.cpp" />
     <ClCompile Include="Communication\ModuleFactory.cpp" />
     <ClCompile Include="Communication\PyManager.cpp" />
+    <ClCompile Include="Interface\AnalysisDescription.cpp" />
     <ClCompile Include="Interface\Function.cpp" />
     <ClCompile Include="Interface\FunctionAnalyzer.cpp" />
     <ClCompile Include="main.cpp" />

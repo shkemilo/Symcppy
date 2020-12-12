@@ -6,6 +6,16 @@
 
 PyManager* PyManager::ms_Instance{ nullptr };
 
+PyManager::PyManager() : m_Modules(static_cast<int>(EModule::Count)) 
+{
+    for (int i = 0; i < static_cast<int>(EModule::Count); i++)
+    {
+        AddModule(static_cast<EModule>(i));
+    }
+
+    Py_Initialize(); 
+}
+
 PyManager* PyManager::GetInstance()
 {
     if (ms_Instance == nullptr)

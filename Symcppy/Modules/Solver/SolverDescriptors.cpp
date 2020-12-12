@@ -28,23 +28,23 @@ FunctionResult FunctionValueAt::ConvertResult(PyObject* result) const
 	return FunctionResult{EStatus::Sucess,value};
 }
 
-// Class: FunctionZeroes
-FunctionZeroes::FunctionZeroes(Module* owner) : FunctionDescriptor(owner, "Zeroes", 1)
+// Class: FunctionZeros
+FunctionZeros::FunctionZeros(Module* owner) : FunctionDescriptor(owner, "Zeros", 1)
 {
 	m_ArgTypes.push_back("string");
 }
 
-bool FunctionZeroes::CheckValidArgTypes(ArgCount argCount, va_list& args) const
+bool FunctionZeros::CheckValidArgTypes(ArgCount argCount, va_list& args) const
 {
 	return false;
 }
 
-PyObject* FunctionZeroes::PrepeareArguments(ArgCount argCount, va_list& args) const
+PyObject* FunctionZeros::PrepeareArguments(ArgCount argCount, va_list& args) const
 {
 	return nullptr;
 }
 
-FunctionResult FunctionZeroes::ConvertResult(PyObject* result) const
+FunctionResult FunctionZeros::ConvertResult(PyObject* result) const
 {
 	PyObject* item = nullptr;
 	std::vector<double>* zeroes = new std::vector<double>();

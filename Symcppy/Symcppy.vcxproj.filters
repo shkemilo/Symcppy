@@ -66,6 +66,9 @@
     <ClInclude Include="Interface\Function.h">
       <Filter>Interface</Filter>
     </ClInclude>
+    <ClInclude Include="Interface\AnalysisDescription.h">
+      <Filter>Interface</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -103,6 +106,9 @@
       <Filter>Interface</Filter>
     </ClCompile>
     <ClCompile Include="Interface\Function.cpp">
+      <Filter>Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="Interface\AnalysisDescription.cpp">
       <Filter>Interface</Filter>
     </ClCompile>
   </ItemGroup>
