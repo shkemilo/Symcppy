@@ -1,5 +1,6 @@
 #include "CalculusSolverDescriptors.h"
 #include <iostream>
+#include<string>
 
 // Class: FunctionDerivative
 FunctionDerivative::FunctionDerivative(Module* owner) : FunctionDescriptor(owner, "Derivative", 1)
@@ -19,7 +20,11 @@ PyObject* FunctionDerivative::PrepeareArguments(ArgCount argCount, va_list& args
 
 FunctionResult FunctionDerivative::ConvertResult(PyObject* result) const
 {
-	return FunctionResult();
+	PyObject* str = PyUnicode_AsEncodedString(result, "utf-8", "#");
+	const char* function = PyBytes_AS_STRING(str);
+	FunctionResult f{ EStatus::Error, nullptr };
+	Py_XDECREF(str);
+	return FunctionResult{ EStatus::Sucess, (void*)function };
 }
 
 // Class: FunctionLimit
@@ -41,5 +46,11 @@ PyObject* FunctionLimit::PrepeareArguments(ArgCount argCount, va_list& args) con
 
 FunctionResult FunctionLimit::ConvertResult(PyObject* result) const
 {
-	return FunctionResult();
+	double* value = nullptr;
+	value = new double(PyFloat_AsDouble(result));
+	if (value == nullptr)
+	{
+		return FunctionResult{ EStatus::Error, nullptr };
+	}
+	return FunctionResult{ EStatus::Sucess, value };
 }

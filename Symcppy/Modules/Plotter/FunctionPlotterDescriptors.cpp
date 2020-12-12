@@ -19,5 +19,5 @@ PyObject* FunctionPlot::PrepeareArguments(ArgCount argCount, va_list& args) cons
 
 FunctionResult FunctionPlot::ConvertResult(PyObject* result) const
 {
-	return FunctionResult();
+	return FunctionResult{ EStatus::Sucess, nullptr };
 }
