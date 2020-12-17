@@ -20,7 +20,7 @@ public:
 
 protected:
 	virtual bool CheckValidArgTypes(ArgCount argCount, va_list& args) const { return true; }
-	virtual PyObject* PrepeareArguments(ArgCount argCount, va_list& args) const = 0;
+	virtual PyObject* PrepareArguments(ArgCount argCount, va_list& args) const = 0;
 	virtual FunctionResult ConvertResult(PyObject* result) const = 0;
 
     const ArgCount m_ArgCount;

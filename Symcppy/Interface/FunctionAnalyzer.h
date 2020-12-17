@@ -16,6 +16,6 @@ public:
 	FunctionResult GetZeros() const;
 
 private:
-	const std::string& m_Function;
+	const char* m_Function;
 
 };

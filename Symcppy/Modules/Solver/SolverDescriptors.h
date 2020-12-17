@@ -8,7 +8,7 @@ public:
 	
 protected:
 	bool CheckValidArgTypes(ArgCount argCount, va_list& args) const override;
-	PyObject* PrepeareArguments(ArgCount argCount, va_list& args) const override;
+	PyObject* PrepareArguments(ArgCount argCount, va_list& args) const override;
 	FunctionResult ConvertResult(PyObject* result) const override;
 
 };
@@ -20,7 +20,7 @@ public:
 
 protected:
 	bool CheckValidArgTypes(ArgCount argCount, va_list& args) const override;
-	PyObject* PrepeareArguments(ArgCount argCount, va_list& args) const override;
+	PyObject* PrepareArguments(ArgCount argCount, va_list& args) const override;
 	FunctionResult ConvertResult(PyObject* result) const override;
 
 };

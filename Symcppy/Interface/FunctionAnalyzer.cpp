@@ -7,7 +7,7 @@
 #include "Modules/Solver/Solver.h"
 #include "Modules/Plotter/FunctionPlotter.h"
 
-FunctionAnalyzer::FunctionAnalyzer(const std::string& function) : m_Function(function)
+FunctionAnalyzer::FunctionAnalyzer(const std::string& function) : m_Function(function.c_str())
 {
 
 }
