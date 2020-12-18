@@ -60,3 +60,84 @@ FunctionResult FunctionLimit::ConvertResult(PyObject* result) const
 
 	return FunctionResult{ status, value };
 }
+
+
+// Class: FunctionMinimum
+
+FunctionMinimum::FunctionMinimum(Module* owner) : FunctionDescriptor(owner, "Minimum", 1)
+{
+	m_ArgTypes.push_back("string");
+}
+
+bool FunctionMinimum::CheckValidArgTypes(ArgCount argCount, va_list& args) const
+{
+	return true;
+}
+
+PyObject* FunctionMinimum::PrepareArguments(ArgCount argCount, va_list& args) const
+{
+	const char* function = va_arg(args, const char*);
+	PyObject* pyFunction = PyUnicode_FromString(function);
+
+	return PyTuple_Pack(1, pyFunction);
+}
+
+FunctionResult FunctionMinimum::ConvertResult(PyObject* result) const
+{
+	double* value = new double(PyFloat_AsDouble(result)); // NOTE: Memory should be released somehow
+	EStatus status = value != nullptr ? EStatus::Sucess : EStatus::Error;
+
+	return FunctionResult{ status, value };
+}
+
+FunctionMaximum::FunctionMaximum(Module* owner) : FunctionDescriptor(owner, "Minimum", 1)
+{
+	m_ArgTypes.push_back("string");
+}
+
+bool FunctionMaximum::CheckValidArgTypes(ArgCount argCount, va_list& args) const
+{
+	return true;
+}
+
+PyObject* FunctionMaximum::PrepareArguments(ArgCount argCount, va_list& args) const
+{
+	const char* function = va_arg(args, const char*);
+	PyObject* pyFunction = PyUnicode_FromString(function);
+
+	return PyTuple_Pack(1, pyFunction);
+}
+
+FunctionResult FunctionMaximum::ConvertResult(PyObject* result) const
+{
+	double* value = new double(PyFloat_AsDouble(result)); // NOTE: Memory should be released somehow
+	EStatus status = value != nullptr ? EStatus::Sucess : EStatus::Error;
+
+	return FunctionResult{ status, value };
+}
+
+FunctionPeriod::FunctionPeriod(Module* owner) : FunctionDescriptor(owner, "Minimum", 1)
+{
+	m_ArgTypes.push_back("string");
+}
+
+bool FunctionPeriod::CheckValidArgTypes(ArgCount argCount, va_list& args) const
+{
+	return true;
+}
+
+PyObject* FunctionPeriod::PrepareArguments(ArgCount argCount, va_list& args) const
+{
+	const char* function = va_arg(args, const char*);
+	PyObject* pyFunction = PyUnicode_FromString(function);
+
+	return PyTuple_Pack(1, pyFunction);
+}
+
+FunctionResult FunctionPeriod::ConvertResult(PyObject* result) const
+{
+	double* value = new double(PyFloat_AsDouble(result)); // NOTE: Memory should be released somehow
+	EStatus status = value != nullptr ? EStatus::Sucess : EStatus::Error;
+
+	return FunctionResult{ status, value };
+}

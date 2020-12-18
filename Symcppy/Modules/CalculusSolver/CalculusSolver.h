@@ -8,6 +8,9 @@ public:
 	{
 		Derivative = 0,
 		Limit,
+		Minimum,
+		Maximum,
+		Period,
 		Count,
 		Invalid
 	};
