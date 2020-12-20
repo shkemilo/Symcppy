@@ -7,7 +7,7 @@
 #include "Modules/Solver/Solver.h"
 #include "Modules/Plotter/FunctionPlotter.h"
 
-FunctionAnalyzer::FunctionAnalyzer(const std::string& function) : m_Function(function)
+FunctionAnalyzer::FunctionAnalyzer(const std::string& function) : m_Function(function.c_str())
 {
 
 }
@@ -32,7 +32,7 @@ FunctionResult FunctionAnalyzer::ValueAt(double point) const
     return PyManager::GetInstance()->CallFunction(EModule::Solver, Solver::EFunction::ValueAt, 2, m_Function, point);
 }
 
-FunctionResult FunctionAnalyzer::GetZeroes() const
+FunctionResult FunctionAnalyzer::GetZeros() const
 {
-    return PyManager::GetInstance()->CallFunction(EModule::Solver, Solver::EFunction::Zeroes, 1, m_Function);
+    return PyManager::GetInstance()->CallFunction(EModule::Solver, Solver::EFunction::Zeros, 1, m_Function);
 }

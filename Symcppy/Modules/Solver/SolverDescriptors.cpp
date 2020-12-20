@@ -10,37 +10,76 @@ FunctionValueAt::FunctionValueAt(Module* owner) : FunctionDescriptor(owner, "Val
 
 bool FunctionValueAt::CheckValidArgTypes(ArgCount argCount, va_list& args) const
 {
-	return false;
+	return true;
 }
 
-PyObject* FunctionValueAt::PrepeareArguments(ArgCount argCount, va_list& args) const
+PyObject* FunctionValueAt::PrepareArguments(ArgCount argCount, va_list& args) const
 {
-	return nullptr;
+	const char* function = va_arg(args, const char*);
+	PyObject* pyFunction = PyUnicode_FromString(function);
+
+	double point = va_arg(args, double);
+	PyObject* pyPoint = PyFloat_FromDouble(point);
+
+	return PyTuple_Pack(2, pyFunction, pyPoint);
 }
 
 FunctionResult FunctionValueAt::ConvertResult(PyObject* result) const
 {
-	return FunctionResult();
+	double* value = new double(PyFloat_AsDouble(result)); // NOTE: Memory should be released somehow
+	EStatus status = value != nullptr ? EStatus::Sucess : EStatus::Error;
+
+	return FunctionResult{ status, value };
 }
 
-// Class: FunctionZeroes
-FunctionZeroes::FunctionZeroes(Module* owner) : FunctionDescriptor(owner, "Zeroes", 1)
+// Class: FunctionZeros
+FunctionZeros::FunctionZeros(Module* owner) : FunctionDescriptor(owner, "GetZeros", 1)
 {
 	m_ArgTypes.push_back("string");
 }
 
-bool FunctionZeroes::CheckValidArgTypes(ArgCount argCount, va_list& args) const
+bool FunctionZeros::CheckValidArgTypes(ArgCount argCount, va_list& args) const
 {
-	return false;
+	return true;
 }
 
-PyObject* FunctionZeroes::PrepeareArguments(ArgCount argCount, va_list& args) const
+PyObject* FunctionZeros::PrepareArguments(ArgCount argCount, va_list& args) const
 {
-	return nullptr;
+	const char* function = va_arg(args, const char*);
+	PyObject* pyFunction = PyUnicode_FromString(function);
+
+	return PyTuple_Pack(1, pyFunction);
 }
 
-FunctionResult FunctionZeroes::ConvertResult(PyObject* result) const
+FunctionResult FunctionZeros::ConvertResult(PyObject* result) const
 {
-	return FunctionResult();
+	PyObject* pyItem = nullptr;
+	std::vector<double>* zeroes = new std::vector<double>();
+	FunctionResult functionResult{ EStatus::Error, nullptr };
+
+	int size = PyList_Size(result);
+	if (size < 0)
+	{
+		return functionResult;
+	}
+
+	for (int i = 0; i < size; i++)
+	{
+		pyItem = PyList_GetItem(result, i);
+		if (!PyFloat_Check(pyItem))
+		{
+			return functionResult;
+		}
+
+		double element = PyFloat_AsDouble(pyItem);
+		if (element == -1.0 && PyErr_Occurred())
+		{
+			return functionResult;
+		}
+
+		zeroes->push_back(element);
+	}
+
+	return FunctionResult{EStatus::Sucess, zeroes};
 }
 

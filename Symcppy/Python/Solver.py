@@ -18,10 +18,3 @@ def ValueAt(function, coord):
     x = symbols('x')
     expr = eval(function)
     return float(expr.subs(x, coord))
-
-
-
-
-
-
-print(ValueAt('1/x', 0))

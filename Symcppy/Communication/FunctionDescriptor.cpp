@@ -20,8 +20,16 @@ FunctionResult FunctionDescriptor::Run(ArgCount argCount,va_list& args) const
         return FunctionResult{ EStatus::InvalidArgTypes, nullptr };
     }   
 
-    PyObject* pythonArgs = PrepeareArguments(argCount, args);
+    PyObject* pythonArgs = PrepareArguments(argCount, args);
+    if (!pythonArgs)
+    {
+        PyErr_Print();
+    }
     PyObject* pythonResult = PyObject_CallObject(m_PythonFunction, pythonArgs);
+    if (!pythonResult)
+    {
+        PyErr_Print();
+    }
 
     return ConvertResult(pythonResult);
 }

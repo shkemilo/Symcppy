@@ -33,6 +33,10 @@ Module::Module(const std::string& name) : m_Name(name)
 {
     PyObject* moduleName = PyUnicode_FromString(m_Name.c_str());
     m_PythonModule = PyImport_Import(moduleName);
+    if (!m_PythonModule)
+    {
+        PyErr_Print();
+    }
 }
 
 /*

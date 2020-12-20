@@ -1,13 +1,18 @@
 #include "Function.h"
+#include <sstream>
 
-Function::Function(const std::string& rawFunction, char variable):m_RawFunction(rawFunction),m_FunctionVariable(variable),m_Analyzer(rawFunction)
+Function::Function(const std::string& rawFunction, char functionVariable): m_RawFunction(rawFunction), m_FunctionVariable(functionVariable), m_Analyzer(rawFunction)
 {
+	if (!IsValidFunction())
+	{
+		// throw some error if it is not valid...
+	}
 }
 
-void Function::SetFunctionRaw(const std::string& fun, char funVar)
+void Function::SetFunctionRaw(const std::string& functionString, char functionVariable)
 {
-	m_RawFunction = fun;
-	m_FunctionVariable = funVar;
+	m_RawFunction = functionString;
+	m_FunctionVariable = functionVariable;
 }
 
 std::string Function::GetFunctionRaw() const
@@ -20,9 +25,19 @@ char Function::GetFunctionVariable() const
 	return m_FunctionVariable;
 }
 
+AnalysisDescription Function::GetAnalysis() const
+{
+	std::vector<double> zeros;
+	GetZeros(zeros);
+	Function derrivative;
+	GetDerivative(derrivative);
+
+	return AnalysisDescription(*this, derrivative, zeros);
+}
+
 EStatus Function::GetZeros(std::vector<double>& zeros) const
 {
-	FunctionResult temp = m_Analyzer.GetZeroes();
+	FunctionResult temp = m_Analyzer.GetZeros();
 	if(temp.result==EStatus::Sucess)
 	{
 		zeros = *(static_cast<std::vector<double>*>(temp.value));
@@ -30,7 +45,7 @@ EStatus Function::GetZeros(std::vector<double>& zeros) const
 	return temp.result;
 }
 
-EStatus Function::GetDerivative(Function& out)
+EStatus Function::GetDerivative(Function& out) const
 {
 	FunctionResult temp = m_Analyzer.Derrivative();
 	if (temp.result == EStatus::Sucess) 
@@ -60,30 +75,48 @@ EStatus Function::GetLimitAt(double point, double& out) const
 	return temp.result;
 }
 
-
-
-Function operator+(Function arg1, Function arg2)
+EStatus Function::Plot(const std::string& dir) const
 {
-	std::string RawFunctionSum = arg1.m_RawFunction.append("+").append(arg2.m_RawFunction);
-	return Function(RawFunctionSum, arg1.m_FunctionVariable);
+	FunctionResult temp = m_Analyzer.Plot();
+	if (temp.result == EStatus::Sucess)
+	{
+
+	}
+	return temp.result;
 }
 
-Function operator-(Function arg1, Function arg2)
+bool Function::IsValidFunction() const
 {
-	std::string RawFunctionSub = arg1.m_RawFunction.append("-").append(arg2.m_RawFunction);
-	return Function(RawFunctionSub, arg1.m_FunctionVariable);
+	return true;
 }
 
-Function operator*(Function arg1, Function arg2)
+Function Function::mergeWithSeperator(const Function& arg1, const Function& arg2, const std::string& seperator)
 {
-	std::string RawFunctionMul = arg1.m_RawFunction.append("*").append(arg2.m_RawFunction);
-	return Function(RawFunctionMul, arg1.m_FunctionVariable);
+	std::stringstream functionStream;
+	functionStream << "(" << arg1.GetFunctionRaw() << ")"
+		<< seperator
+		<< "(" << arg2.GetFunctionRaw() << ")";
+	return Function(functionStream.str(), arg1.GetFunctionVariable());
 }
 
-Function operator/(Function arg1, Function arg2)
+Function operator+(const Function& arg1, const Function& arg2)
 {
-	std::string RawFunctionDiv = arg1.m_RawFunction.append("/").append(arg2.m_RawFunction);
-	return Function(RawFunctionDiv, arg1.m_FunctionVariable);
+	return Function::mergeWithSeperator(arg1, arg2, " + ");
+}
+
+Function operator-(const Function& arg1, const Function& arg2)
+{
+	return Function::mergeWithSeperator(arg1, arg2, " - ");
+}
+
+Function operator*(const Function& arg1, const Function& arg2)
+{
+	return Function::mergeWithSeperator(arg1, arg2, " * ");
+}
+
+Function operator/(const Function& arg1, const Function& arg2)
+{
+	return Function::mergeWithSeperator(arg1, arg2, " / ");
 }
 
 std::ostream& operator<<(std::ostream& output, const Function& function)
