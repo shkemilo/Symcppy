@@ -1,4 +1,5 @@
 from sympy import *
+from sympy.calculus.util import continuous_domain
 
 def convertExpressionList(expressionList):
 	numberList = []
@@ -17,7 +18,11 @@ def GetZeros(function, funVariable):
 def ValueAt(function, coord):
     x = symbols('x')
     expr = eval(function)
-    return float(expr.subs(x, coord))
+    domain = continuous_domain(expr, x, S.Reals)
+    if domain.contains(coord):
+        return float(expr.subs(x, coord))
+    else:
+        return 'None'
 
 
 
