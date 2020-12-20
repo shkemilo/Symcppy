@@ -1,10 +1,22 @@
 #include "PyManager.h"
 #include <stdarg.h>
+#include <iostream>
+#include <filesystem>
 
 #include "ModuleFactory.h"
 #include "Module.h"
 
 PyManager* PyManager::ms_Instance{ nullptr };
+
+PyManager::PyManager() : m_Modules(static_cast<int>(EModule::Count)) 
+{
+    Py_Initialize();
+    AddModulePath("C:\\Users\\Miloske\\source\\repos\\Symcppy\\Symcppy\\Python");
+    for (int i = 0; i < static_cast<int>(EModule::CalculusSolver); i++) // TEMPORARY
+    {
+        AddModule(static_cast<EModule>(i));
+    }
+}
 
 PyManager* PyManager::GetInstance()
 {
@@ -30,6 +42,13 @@ FunctionResult PyManager::CallFunction(EModule module, FunctionIndex functionInd
     va_end(args);
 
     return result;
+}
+
+void PyManager::AddModulePath(const std::string& modulePath) const
+{
+    // Note: Would be nice to add a option to add relative paths...
+    PyObject* sysPath = PySys_GetObject("path");
+    PyList_Append(sysPath, PyUnicode_FromString(modulePath.c_str()));
 }
 
 const Module* PyManager::GetModule(EModule module) const

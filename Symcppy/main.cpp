@@ -1,18 +1,19 @@
 #include <iostream>
+#include "Interface/Function.h"
 
 using namespace std;
 
 int main()
 {
-	cout << "Hello World!" << endl;
-	cout << "poci" << endl;
-	cout << "mista" << endl;
+	Function f("x**2 + 10", 'x');
+	vector<double> zeros;
+	EStatus status = f.GetZeros(zeros);
 
-	int a = 0;
-	double b = 2;
+	for (double zero : zeros)
+		cout << zero << " ";
+	cout << endl;
 
-	cout << typeid(a).name() << endl;
-	cout << typeid(b).name() << endl;
+	cout << ":)" << endl;
 	cin.get();
 	return 0;
 }

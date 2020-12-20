@@ -13,9 +13,9 @@ public:
 	FunctionResult Limit(double point) const;
 
 	FunctionResult ValueAt(double point) const;
-	FunctionResult GetZeroes() const;
+	FunctionResult GetZeros() const;
 
 private:
-	const std::string& m_Function;
+	const char* m_Function;
 
 };

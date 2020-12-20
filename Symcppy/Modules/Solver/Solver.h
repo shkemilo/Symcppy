@@ -8,7 +8,7 @@ class Solver : public Module
 public:
 	enum EFunction
 	{
-		Zeroes = 0,
+		Zeros = 0,
 		ValueAt,
 		Count,
 		Invalid

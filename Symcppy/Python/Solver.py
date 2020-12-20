@@ -26,7 +26,3 @@ def ValueAt(function, coord):
 
 
 
-
-
-
-print(ValueAt('1/x', 0))
