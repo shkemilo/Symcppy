@@ -84,9 +84,6 @@
     <ClCompile Include="Communication\ModuleFactory.cpp">
       <Filter>Communication</Filter>
     </ClCompile>
-    <ClCompile Include="Modules\CalculusSolver\CalculusSolver.cpp">
-      <Filter>Modules\CalculusSolver</Filter>
-    </ClCompile>
     <ClCompile Include="Modules\CalculusSolver\CalculusSolverDescriptors.cpp">
       <Filter>Modules\CalculusSolver</Filter>
     </ClCompile>
@@ -111,5 +108,11 @@
     <ClCompile Include="Interface\AnalysisDescription.cpp">
       <Filter>Interface</Filter>
     </ClCompile>
+    <ClCompile Include="Modules\CalculusSolver\CalculusSolver.cpp">
+      <Filter>Modules\CalculusSolver</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>

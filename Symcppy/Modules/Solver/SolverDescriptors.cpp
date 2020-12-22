@@ -26,10 +26,32 @@ PyObject* FunctionValueAt::PrepareArguments(ArgCount argCount, va_list& args) co
 
 FunctionResult FunctionValueAt::ConvertResult(PyObject* result) const
 {
-	double* value = new double(PyFloat_AsDouble(result)); // NOTE: Memory should be released somehow
-	EStatus status = value != nullptr ? EStatus::Sucess : EStatus::Error;
+	FunctionResult functionResult;
+	if (PyFloat_Check(result))
+	{
+		functionResult.value = new double(PyFloat_AsDouble(result)); // NOTE: Memory should be released somehow
+		functionResult.result = EStatus::Sucess;
+	}
+	else if (PyUnicode_Check(result))
+	{
+		const char* message = PyUnicode_AsUTF8(result);
+		if (message == K_POSITIVE_INF)
+		{
+			functionResult.result = EStatus::MathInf;
+			functionResult.value = new double(K_POSITIVE_INF_VALUE);
+		}
+		else if (message == K_NEGATIVE_INF)
+		{
+			functionResult.result = EStatus::MathInf;
+			functionResult.value = new double(K_NEGATIVE_INF_VALUE);
+		}
+		else
+		{
+			functionResult.result = EStatus::MathUndefined;
+		}
+	}
 
-	return FunctionResult{ status, value };
+	return functionResult;
 }
 
 // Class: FunctionZeros

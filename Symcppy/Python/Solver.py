@@ -4,12 +4,13 @@ from sympy.calculus.util import continuous_domain
 def convertExpressionList(expressionList):
 	numberList = []
 	for expression in expressionList:
-		numberList.append(expression.evalf())
+		numberList.append(float(re(expression)))
 	return numberList
 
 
-def GetZeros(function, funVariable):
+def GetZeros(function):
     x = symbols('x', real = True)
+    print(function)
     f = eval(function)
     exList = solve(f, x)
     return convertExpressionList(exList) 
@@ -18,6 +19,7 @@ def GetZeros(function, funVariable):
 def ValueAt(function, coord):
     x = symbols('x')
     expr = eval(function)
+<<<<<<< Updated upstream
     domain = continuous_domain(expr, x, S.Reals)
     if domain.contains(coord):
         return float(expr.subs(x, coord))
@@ -26,3 +28,6 @@ def ValueAt(function, coord):
 
 
 
+=======
+    return float(expr.subs(x, coord))
+>>>>>>> Stashed changes

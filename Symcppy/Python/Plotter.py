@@ -12,7 +12,7 @@ def convertExpressionList(expressionList):
 
 
 def getDomain(function):
-    x = Symbol('x')
+    x = Symbol('x', real = True)
     f= eval(function)
     return continuous_domain(f, x, S.Reals)
 
@@ -23,7 +23,7 @@ def findDiscontinuities(function):
 
 
 def findVerticalAsymptotes(function):
-    x = symbols('x')
+    x = symbols('x', real = True)
     f = eval(function)
     vAsymptote = []
     bound = []
@@ -32,10 +32,10 @@ def findVerticalAsymptotes(function):
     if not bound:
         return vAsymptote
     else:
-        for i in range(0,len(bound)):
-            l1 = limit(f,x,bound[i],'-')
-            l2 = limit(f,x,bound[i],'+')
-            if math.isinf(l1) or math.isinf(l2):
+        for i in range(0, len(bound)):
+            l1 = limit(f, x, bound[i], '-')
+            l2 = limit(f, x, bound[i], '+')
+            if math.isinf(re(l1)) or math.isinf(re(l2)):
                 vAsymptote.append( bound[i])
 
     
@@ -43,35 +43,36 @@ def findVerticalAsymptotes(function):
 
 
 def findHorizontalAsymptotes(function):
-    x = symbols('x')
+    x = symbols('x', real = True)
     fun = eval(function)
     hAsy = []
     h1 = limit(fun ,x, '+oo')
     h2 = limit(fun, x, '-oo')
     if  isinstance(h1,numbers.Number) and not math.isinf(h1):
         hAsy.append(h1)
-    if  isinstance(h1,numbers.Number) and not math.isinf(h2):
+    if  isinstance(h2,numbers.Number) and not math.isinf(h2):
         hAsy.append(h2)
     
     return hAsy
 
 
 def findObliqueAsymptote(function):
-    x = symbols('x')
+    x = symbols('x', real = True)
     f = eval(function)
     oAsymptotes = []
     k1 = limit(f/x, x, '+oo')
     k2 = limit(f/x, x, '-oo')
 
-    
     if isinstance(k1, numbers.Number) and k1 != 0 and not math.isinf(k1):
         n1 = limit(f-k1*x, x, '+oo')
-        asymptote1 = k1*x + n1
-        oAsymptotes.append(asymptote1)
+        if not math.isinf(n1):
+            asymptote1 = k1*x + n1
+            oAsymptotes.append(asymptote1)
     if isinstance(k2, numbers.Number) and k2 != 0 and not math.isinf(k2):
         n2 = limit(f - k2*x, x, '-oo')
-        asymptote2 = k2*x + n2
-        oAsymptotes.append(asymptote2)
+        if not math.isinf(n2):
+            asymptote2 = k2*x + n2
+            oAsymptotes.append(asymptote2)
 
     oAsymptotes = list(dict.fromkeys(oAsymptotes))
     return oAsymptotes
@@ -79,12 +80,15 @@ def findObliqueAsymptote(function):
     
     
 def Plot(function):
-    x = symbols('x')
+    x = symbols('x', real = True)
     y = symbols('y')
     fun = eval(function)
     hAsymptote = findHorizontalAsymptotes(function)
+    print(hAsymptote)
     vAsymptote = findVerticalAsymptotes(function)
+    print(vAsymptote)
     oAsymptote = findObliqueAsymptote(function)
+    print(oAsymptote)
     vAsymptote.sort()
     if not vAsymptote:
        p= plot(fun, show =  False, title = "f(x) = " + function)
@@ -101,7 +105,7 @@ def Plot(function):
 
     else:
         prevVert = vAsymptote[0]
-        f1 = Piecewise((fun, x<vAsymptote[0]))
+        f1 = Piecewise((fun, x < vAsymptote[0]))
         p = plot(f1, show = False, ylim=[-5,5], title = 'f(x) = ' + function)
 
         for i in range(1, len(vAsymptote)):
@@ -124,28 +128,3 @@ def Plot(function):
             oa = plot(i, show = False, line_color = 'red')
             p.extend(oa)   
         p.show()
-
-    
-
-        
-    
-
-
-#print(findDiscontinuities('1/(x+3)'))
-#print(findDiscontinuities('1/x**2'))
-#print(findVertAsymptotes('1/x**2'))
-#x= symbols('x')
-#p2 = plot(sin(x), show = False)
-#p = plot_implicit(Eq(x,0), show = False)
-
-#p2.extend(p)
-#p2.show()
-
-#Plot('1/x')
-#x = symbols('x', real = True)
-#p = plot(1/x, show = False,line_color = 'r', ylim=[-20,20], adaptive = False, nb_of_points = 1000 )
-#p.show()
-
-
-#print(getDomain('1/x'))
-Plot('1/x')

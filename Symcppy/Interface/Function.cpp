@@ -9,9 +9,10 @@ Function::Function(const std::string& rawFunction, char functionVariable): m_Raw
 	}
 }
 
-void Function::SetFunctionRaw(const std::string& functionString, char functionVariable)
+void Function::SetFunctionRaw(const std::string& functionString, char functionVariable ='x')
 {
 	m_RawFunction = functionString;
+	m_Analyzer.SetFunction(m_RawFunction);
 	m_FunctionVariable = functionVariable;
 }
 
@@ -25,14 +26,32 @@ char Function::GetFunctionVariable() const
 	return m_FunctionVariable;
 }
 
-AnalysisDescription Function::GetAnalysis() const
+AnalysisDescription Function::GetAnalysis(bool plot) const
 {
+	Union u;
+	GetDomain(u);
+	EParity parity;
+	GetParity(parity);
+	double period;
+	EStatus periodStatus = GetPeriodicity(period);
 	std::vector<double> zeros;
 	GetZeros(zeros);
 	Function derrivative;
 	GetDerivative(derrivative);
+	double min;
+	EStatus minStatus = GetMin(min);
+	double max;
+	EStatus maxStatus = GetMax(max);
+	Union* monotonicity;
+	GetMonotonicity(monotonicity);
+	Union* convexity;
+	GetConvexity(convexity);
+	if (plot)
+	{
+		Plot();
+	}
 
-	return AnalysisDescription(*this, derrivative, zeros);
+	return AnalysisDescription(*this, u, periodStatus, period, parity, derrivative, minStatus, min, maxStatus, max, monotonicity, convexity, zeros);
 }
 
 EStatus Function::GetZeros(std::vector<double>& zeros) const
@@ -50,7 +69,7 @@ EStatus Function::GetDerivative(Function& out) const
 	FunctionResult temp = m_Analyzer.Derrivative();
 	if (temp.result == EStatus::Sucess) 
 	{
-		out.m_RawFunction = *(static_cast<std::string*>(temp.value));
+		out.SetFunctionRaw(*(static_cast<std::string*>(temp.value)));
 	}
 	return temp.result;
 }
@@ -65,17 +84,87 @@ EStatus Function::GetValueAt(double point, double& out) const
 	return temp.result;
 }
 
-EStatus Function::GetLimitAt(double point, double& out) const
+EStatus Function::GetLimitAt(double point, ELimitFrom from, double& out) const
 {
-	FunctionResult temp = m_Analyzer.Limit(point);
-	if (temp.result == EStatus::Sucess)
+	FunctionResult temp = m_Analyzer.Limit(point, from);
+	if (temp.result == EStatus::Sucess || temp.result == EStatus::MathInf)
 	{
 		out = *(static_cast<double*>(temp.value));
 	}
 	return temp.result;
 }
 
-EStatus Function::Plot(const std::string& dir) const
+EStatus Function::GetMin(double& out) const
+{
+	FunctionResult temp = m_Analyzer.GetMin();
+	if (temp.result == EStatus::Sucess || temp.result == EStatus::MathInf)
+	{
+		out = *(static_cast<double*>(temp.value));
+	}
+	return temp.result;
+}
+
+EStatus Function::GetMax(double& out) const
+{
+	FunctionResult temp = m_Analyzer.GetMax();
+	if (temp.result == EStatus::Sucess || temp.result == EStatus::MathInf)
+	{
+		out = *(static_cast<double*>(temp.value));
+	}
+	return temp.result;
+}
+
+EStatus Function::GetParity(EParity& out) const
+{
+	FunctionResult temp = m_Analyzer.GetParity();
+	if (temp.result == EStatus::Sucess || temp.result == EStatus::MathInf)
+	{
+		out = (EParity)*(static_cast<int*>(temp.value));
+	}
+	return temp.result;
+}
+
+EStatus Function::GetMonotonicity(Union*& out) const
+{
+	FunctionResult temp = m_Analyzer.GetMonotonicity();
+	if (temp.result == EStatus::Sucess)
+	{
+		out = static_cast<Union*>(temp.value);
+	}
+	return temp.result;
+}
+
+EStatus Function::GetConvexity(Union*& out) const
+{
+	FunctionResult temp = m_Analyzer.GetConvexity();
+	if (temp.result == EStatus::Sucess)
+	{
+		out = static_cast<Union*>(temp.value);
+	}
+	return temp.result;
+}
+
+EStatus Function::GetPeriodicity(double& out) const
+{
+	FunctionResult temp = m_Analyzer.GetPeriodicity();
+	if (temp.result == EStatus::Sucess || temp.result == EStatus::MathInf)
+	{
+		out = *(static_cast<double*>(temp.value));
+	}
+	return temp.result;
+}
+
+EStatus Function::GetDomain(Union& out) const
+{
+	FunctionResult temp = m_Analyzer.GetDomain();
+	if (temp.result == EStatus::Sucess)
+	{
+		out = *(static_cast<Union*>(temp.value));
+	}
+	return temp.result;
+}
+
+EStatus Function::Plot() const
 {
 	FunctionResult temp = m_Analyzer.Plot();
 	if (temp.result == EStatus::Sucess)

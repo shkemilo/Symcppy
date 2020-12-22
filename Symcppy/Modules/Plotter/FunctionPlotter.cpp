@@ -2,7 +2,7 @@
 
 #include "FunctionPlotterDescriptors.h"
 
-FunctionPlotter::FunctionPlotter() : Module("FunctionPlotter")
+FunctionPlotter::FunctionPlotter() : Module("Plotter")
 {
 	m_Functions.reserve(EFunction::Count);
 	m_Functions.push_back(new FunctionPlot(this));

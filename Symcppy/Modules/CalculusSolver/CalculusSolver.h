@@ -10,7 +10,11 @@ public:
 		Limit,
 		Minimum,
 		Maximum,
-		Period,
+		Periodicity,
+		Domain,
+		Parity,
+		Monotonicity,
+		Convexity,
 		Count,
 		Invalid
 	};

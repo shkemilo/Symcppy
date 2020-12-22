@@ -5,15 +5,10 @@ using namespace std;
 
 int main()
 {
-	Function f("x**2 + 10", 'x');
-	vector<double> zeros;
-	EStatus status = f.GetZeros(zeros);
+	Function f("x**3");
 
-	for (double zero : zeros)
-		cout << zero << " ";
-	cout << endl;
-
-	cout << ":)" << endl;
+	cout << f.GetAnalysis(false) << endl;
+	
 	cin.get();
 	return 0;
 }

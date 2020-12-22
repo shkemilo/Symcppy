@@ -7,6 +7,10 @@ FunctionDescriptor::FunctionDescriptor(const Module* owner, const std::string& n
     m_OwnerModule(owner), m_Name(name), m_ArgCount(argCount)
 {
     m_PythonFunction = PyObject_GetAttrString(m_OwnerModule->GetPythonModule(), m_Name.c_str());
+    if (!m_PythonFunction)
+    {
+        PyErr_Print();
+    }
 }
 
 FunctionResult FunctionDescriptor::Run(ArgCount argCount,va_list& args) const

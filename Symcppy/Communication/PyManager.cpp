@@ -12,7 +12,7 @@ PyManager::PyManager() : m_Modules(static_cast<int>(EModule::Count))
 {
     Py_Initialize();
     AddModulePath("C:\\Users\\Miloske\\source\\repos\\Symcppy\\Symcppy\\Python");
-    for (int i = 0; i < static_cast<int>(EModule::CalculusSolver); i++) // TEMPORARY
+    for (int i = 0; i < static_cast<int>(EModule::Count); i++) // TEMPORARY
     {
         AddModule(static_cast<EModule>(i));
     }

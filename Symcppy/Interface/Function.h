@@ -17,13 +17,20 @@ public:
 	std::string GetFunctionRaw() const;
 	char GetFunctionVariable() const;
 
-	AnalysisDescription GetAnalysis() const;
+	AnalysisDescription GetAnalysis(bool plot = false) const;
 	
 	EStatus GetZeros(std::vector<double>& zeros) const;
 	EStatus GetDerivative(Function& out) const;
 	EStatus GetValueAt(double point, double& out) const;
-	EStatus GetLimitAt(double point, double& out) const;
-	EStatus Plot(const std::string& dir) const;
+	EStatus GetLimitAt(double point, ELimitFrom from, double& out) const;
+	EStatus GetMin(double& out) const;
+	EStatus GetMax(double& out) const;
+	EStatus GetParity(EParity& out) const;
+	EStatus GetMonotonicity(Union*& out) const;
+	EStatus GetConvexity(Union*& out) const;
+	EStatus GetPeriodicity(double& out) const;
+	EStatus GetDomain(Union& out) const;
+	EStatus Plot() const;
 
 	friend Function operator+(const Function& arg1, const Function& arg2);
 	friend Function operator-(const Function& arg1, const Function& arg2);
