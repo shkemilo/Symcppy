@@ -7,12 +7,14 @@ AnalysisDescription::AnalysisDescription(const Function& owner, const Union& dom
 	m_Zeros(zeros), m_Domain(domain),
 	m_PeriodStatus(periodStatus), m_Period(period),
 	m_Parity(parity),
-	m_MinStatus(minStatus), m_Min(min), 
+	m_MinStatus(minStatus), m_Min(min),
 	m_MaxStatus(maxStatus), m_Max(max),
 	m_Monotonicity(monotonicity), m_Convexity(convexity)
 {
 	m_Owner = new Function(owner);
 	m_Derrivative = new Function(derrivative);
+	m_Monotonicity = (monotonicity != nullptr) ? monotonicity : new Union[2];
+	m_Convexity = (convexity != nullptr) ? convexity : new Union[2];
 }
 
 AnalysisDescription::~AnalysisDescription()

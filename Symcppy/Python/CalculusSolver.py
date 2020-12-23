@@ -1,5 +1,5 @@
 from sympy import *
-from sympy.calculus.util import continuous_domain, stationary_points, function_range, is_convex
+from sympy.calculus.util import continuous_domain, function_range
 
 import numbers
 import math
@@ -56,9 +56,9 @@ def GetLimit(function, point, sign):
 
 
 def GetMin(function):
-    x = Symbol('x', real = True)
+    x = symbols('x', real = True)
     f = eval(function)
-    m = minimum(f, x, S.Reals)
+    m = minimum(f, x, S.Reals).evalf()
     
     if isinstance(m, numbers.Number) and not math.isinf(m):
         return float(m)
@@ -66,10 +66,10 @@ def GetMin(function):
         return 'None'
 
 def GetMax(function):
-    x = Symbol('x', real = True)
+    x = symbols('x', real = True)
     f = eval(function)
-    m = maximum(f, x, S.Reals)
-    
+    m = maximum(f, x, S.Reals).evalf()
+
     if isinstance(m, numbers.Number) and not math.isinf(m):
         return float(m)
     else:
@@ -90,7 +90,7 @@ def GetPeriodicity(function):
     f = eval(function)
     p = periodicity(f,x)
     if p == None or p == 0:
-        return "Aperiodic"
+        return 'Aperiodic'
     else:
         return float(p)
 
@@ -112,63 +112,107 @@ def GetSymmetry(function):
 
   
 
-
-#def CheckMonotonicity(fun):
-   # x = symbols('x', real = True)
-    #f = eval(fun)
-    #domain = continuous_domain(f, x, S.Reals)
-    #union_increasing = Union()
-    #union_decreasing = Union()
-    #if isinstance(domain, Interval):
-      #  if is_increasing(f, domain, x):
-       #     union_increasing = Union(union_increasing, domain)
-       # else:
-      #      union_decreasing = Union(union_decreasing, domain)
-   # else:
-      #  for i in domain.args:
-       #     if is_increasing(f, i, x):
-         #       union_increasing = Union(union_increasing, i)
-         #   else:
-         #       union_decreasing = Union(union_decreasing, i)
-
-<<<<<<< Updated upstream
-    #return (DomainToString(union_increasing), DomainToString(union_decreasing))
-=======
-def convertExpressionList(expressionList):
-	numberList = []
-	for expression in expressionList:
-		numberList.append(float(re(expression)))
-	return numberList
-
-def GetZeros(function):
-    x = symbols('x', real = True)
-    print(function)
-    f = eval(function)
-    exList = solve(f, x)
-    return convertExpressionList(exList) 
->>>>>>> Stashed changes
-
-def CheckMonotonicity(fun):
+def GetConvexity(fun):
     x = symbols('x', real = True)
     f = eval(fun)
     f_diff = diff(f, x)
+    f_second_diff = diff(f_diff, x)
 
-    domain = continuous_domain(f, x, S.Reals)
-    domainDiff = continuous_domain(f_diff, x, S.Reals)
-    finalUnion = domain.intersect(domainDiff)
+    p = periodicity(f, x)
+    if(p == 0 or p == None):
+        domain = continuous_domain(f, x, S.Reals)
+        domainDiff = continuous_domain(f_second_diff, x, S.Reals)
+        finalUnion = domain.intersect(domainDiff)
+        stPoints = stationary_points(f_diff, x, S.Reals)
+
+    else:
+        domain = continuous_domain(f, x, Interval(0, p))
+        domainDiff = continuous_domain(f_second_diff, x, Interval(0, p))
+        finalUnion = domain.intersect(domainDiff)
+        stPoints = stationary_points(f_diff, x, Interval(0, p))
+
     unionInc = Union()
     unionDec = Union()
-<<<<<<< Updated upstream
-    stPoints = stationary_points(f, x, S.Reals)
-    
+    condition = False
 
-    if stPoints.is_empty:
-=======
-    #stPoints = stationary_points(f, x, S.Reals)
-    stPoints = GetZeros(str(f_diff))
+    unionOfConditionSet = False
+    if(isinstance(stPoints, Union)):
+        for element in stPoints.args:
+            if(isinstance(element, ConditionSet)):
+                unionOfConditionSet = True
+                break
+
+    if(isinstance(stPoints,ConditionSet) or unionOfConditionSet):
+        stPoints = solve(f_second_diff, x)
+        if(len(stPoints)==0):
+             condition = True
+    else:
+        if(stPoints.is_empty):
+            condition = True
+    if condition:
+        if isinstance(finalUnion, Interval):
+            if is_convex(f, x, domain = finalUnion):
+                unionInc = Union(unionInc, finalUnion)
+            else:
+                unionDec = Union(unionDec, finalUnion)
+        else:
+            for interval in finalUnion.args:
+                if is_convex(f, x, domain = interval):
+                    unionInc = Union(unionInc, interval)
+                else:
+                    unionDec = Union(unionDec, interval)
+
+
+    else:
+        finalUnion = IntervalParsing(finalUnion, stPoints)
+        
+        for interval in finalUnion.args:
+            if is_convex(f, x, domain = interval):
+                unionInc = Union(unionInc, interval)
+            else:
+                unionDec = Union(unionDec, interval)
+
+    return ( DomainToString(unionInc), DomainToString(unionDec)  )
+      
+
+def CheckMonotonicity(fun):
+    x = Symbol('x', real = True)
+    f = eval(fun)
+    f_diff = diff(f, x)
+
+    p = periodicity(f, x)
+    if(p == 0 or p == None):
+        domain = continuous_domain(f, x, S.Reals)
+        domainDiff = continuous_domain(f_diff, x, S.Reals)
+        finalUnion = domain.intersect(domainDiff)
+        stPoints = stationary_points(f, x, S.Reals)
+
+    else:
+        domain = continuous_domain(f, x, Interval(0, p))
+        domainDiff = continuous_domain(f_diff, x, Interval(0, p))
+        finalUnion = domain.intersect(domainDiff)
+        stPoints = stationary_points(f, x, Interval(0, p))
+
+    unionInc = Union()
+    unionDec = Union()
+    condition = False
+
+    unionOfConditionSet = False
+    if(isinstance(stPoints, Union)):
+        for element in stPoints.args:
+            if(isinstance(element, ConditionSet)):
+                unionOfConditionSet = True
+                break
     
-    if stPoints == []:
->>>>>>> Stashed changes
+    if(isinstance(stPoints,ConditionSet) or unionOfConditionSet):
+        stPoints = solve(f_diff, x)
+        print(stPoints)
+        if(len(stPoints)==0):
+             condition = True
+    else:
+        if(stPoints.is_empty):
+            condition = True
+    if condition:
         if isinstance(finalUnion, Interval):
             if is_increasing(f, finalUnion, x):
                 unionInc = Union(unionInc, finalUnion)
@@ -183,91 +227,56 @@ def CheckMonotonicity(fun):
 
 
     else:
-        if isinstance(finalUnion, Interval):
-            for element in stPoints:
-                if finalUnion.contains(element):
-                    int1 = Interval(finalUnion.left, element,left_open = finalUnion.left_open, right_open = True)
-                    int2 = Interval(element, finalUnion.right, left_open = True, right_open = finalUnion.right_open)
-                    u = Union(int1, int2)
-                    finalUnion = finalUnion.intersect(u)
-        else:
-
-
-            for interval in finalUnion.args:
-                for element in stPoints:
-                    if interval.contains(element):
-                        int1 = Interval(interval.left, element,left_open = interval.left_open, right_open = True)
-                        int2 = Interval(element, interval.right, left_open = True, right_open = interval.right_open)
-                        u = Union(int1, int2)
-                        finalUnion = finalUnion.intersect(u)
+        finalUnion = IntervalParsing(finalUnion, stPoints)
         
         for interval in finalUnion.args:
             if is_increasing(f, interval, x):
                 unionInc = Union(unionInc, interval)
             else:
                 unionDec = Union(unionDec, interval)
-<<<<<<< Updated upstream
 
-    return (DomainToString(unionInc), DomainToString(unionDec))
+    return ( DomainToString(unionDec), DomainToString(unionInc) )
 
-def CheckIfConvex(fun):
-    x = symbols('x', real = True)
-    f = eval(fun)
-    f_diff = diff(f, x)
-    f_dDiff = diff(f_diff, x)
 
-    domain = continuous_domain(f, x, S.Reals)
-    domainDiff = continuous_domain(f_dDiff, x, S.Reals)
-    finalUnion = domain.intersect(domainDiff)
-    unionInc = Union()
-    unionDec = Union()
-    stPoints = stationary_points(f, x, S.Reals)
+def IntervalParsing(interval, stPoints):
+    finalUnion = interval
+    for element in stPoints:
+        if(isinstance(finalUnion, Interval)):
+            if(finalUnion.contains(element)):
+                int1 = Interval(finalUnion.left, element,left_open = finalUnion.left_open, right_open = True)
+                int2 = Interval(element, finalUnion.right, left_open = True, right_open = finalUnion.right_open)
+                finalUnion = Union(int1, int2)
+
+        else:
+            finalUnion = UnionParsing(finalUnion, element)
+   
+    return finalUnion
+
+
+                
+
+
+def UnionParsing(union, stPoint):
+    finalUnion = Union()
+    for interval in union.args:
+            if interval.contains(stPoint):
+                int1 = Interval(interval.left, stPoint,left_open = interval.left_open, right_open = True)
+                int2 = Interval(stPoint, interval.right, left_open = True, right_open = interval.right_open)
+                u = Union(int1, int2)
+                finalUnion = Union(finalUnion,u)
+            else:
+                finalUnion = Union(finalUnion,interval)
+    return finalUnion
     
 
-    if stPoints.is_empty:
-        if isinstance(finalUnion, Interval):
-            if is_convex(f, finalUnion, x):
-                unionInc = Union(unionInc, finalUnion)
-            else:
-                unionDec = Union(unionDec, finalUnion)
-        else:
-            for interval in finalUnion.args:
-                if is_convex(f, interval, x):
-                    unionInc = Union(unionInc, interval)
-                else:
-                    unionDec = Union(unionDec, interval)
 
-
-    else:
-        if isinstance(finalUnion, Interval):
-            for element in stPoints:
-                if finalUnion.contains(element):
-                    int1 = Interval(finalUnion.left, element,left_open = finalUnion.left_open, right_open = True)
-                    int2 = Interval(element, finalUnion.right, left_open = True, right_open = finalUnion.right_open)
-                    u = Union(int1, int2)
-                    finalUnion = finalUnion.intersect(u)
-        else:
-
-
-            for interval in finalUnion.args:
-                for element in stPoints:
-                    if interval.contains(element):
-                        int1 = Interval(interval.left, element,left_open = interval.left_open, right_open = True)
-                        int2 = Interval(element, interval.right, left_open = True, right_open = interval.right_open)
-                        u = Union(int1, int2)
-                        finalUnion = finalUnion.intersect(u)
-        
-        for interval in finalUnion.args:
-            if is_convex(f, interval, x):
-                unionInc = Union(unionInc, interval)
-            else:
-                unionDec = Union(unionDec, interval)
-
-    return (DomainToString(unionInc), DomainToString(unionDec))
+#print(GetConvexity("(1 + ln(abs(x)))/(x*(1 - ln(abs(x))))"))
+# print(GetConvexity("(e**x-e**(-x))/(e**x+e**(-x))"))
+#print(CheckMonotonicity("(x-2)/((log(x-2))**2)"))
 
 
 
-            
+
 
 
 
@@ -277,64 +286,3 @@ def CheckIfConvex(fun):
 
 
 
-
-    
-=======
-
-    return (DomainToString(unionDec), DomainToString(unionInc))
->>>>>>> Stashed changes
-
-def GetConvexity(fun):
-    x = symbols('x', real = True)
-    f = sympify(fun)
-    f_diff = diff(f, x)
-    f_dDiff = diff(f_diff, x)
-
-    domain = continuous_domain(f, x, S.Reals)
-    domainDiff = continuous_domain(f_dDiff, x, S.Reals)
-    finalUnion = domain.intersect(domainDiff)
-    unionInc = Union()
-    unionDec = Union()
-    #stPoints = stationary_points(f, x, S.Reals)
-    stPoints = GetZeros(str(f_diff))
-    
-    if stPoints == []:
-        if isinstance(finalUnion, Interval):
-            if is_convex(f, x, domain = finalUnion):
-                unionInc = Union(unionInc, finalUnion)
-            else:
-                unionDec = Union(unionDec, finalUnion)
-        else:
-            for interval in finalUnion.args:
-                if is_convex(f, interval, x):
-                    unionInc = Union(unionInc, interval)
-                else:
-                    unionDec = Union(unionDec, interval)
-
-
-    else:
-        if isinstance(finalUnion, Interval):
-            for element in stPoints:
-                if finalUnion.contains(element):
-                    int1 = Interval(finalUnion.left, element,left_open = finalUnion.left_open, right_open = True)
-                    int2 = Interval(element, finalUnion.right, left_open = True, right_open = finalUnion.right_open)
-                    u = Union(int1, int2)
-                    finalUnion = finalUnion.intersect(u)
-        else:
-
-
-            for interval in finalUnion.args:
-                for element in stPoints:
-                    if interval.contains(element):
-                        int1 = Interval(interval.left, element,left_open = interval.left_open, right_open = True)
-                        int2 = Interval(element, interval.right, left_open = True, right_open = interval.right_open)
-                        u = Union(int1, int2)
-                        finalUnion = finalUnion.intersect(u)
-        
-        for interval in finalUnion.args:
-            if is_convex(f, x, domain = interval):
-                unionInc = Union(unionInc, interval)
-            else:
-                unionDec = Union(unionDec, interval)
-
-    return (DomainToString(unionDec), DomainToString(unionInc))

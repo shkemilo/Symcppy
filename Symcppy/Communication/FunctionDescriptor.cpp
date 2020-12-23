@@ -27,12 +27,18 @@ FunctionResult FunctionDescriptor::Run(ArgCount argCount,va_list& args) const
     PyObject* pythonArgs = PrepareArguments(argCount, args);
     if (!pythonArgs)
     {
+#ifdef _DEBUG
         PyErr_Print();
+#endif // !_DEBUG
+        return FunctionResult{ EStatus::Error, nullptr };
     }
     PyObject* pythonResult = PyObject_CallObject(m_PythonFunction, pythonArgs);
     if (!pythonResult)
     {
+#ifdef _DEBUG
         PyErr_Print();
+#endif // !_DEBUG
+        return FunctionResult{ EStatus::Error, nullptr };
     }
 
     return ConvertResult(pythonResult);

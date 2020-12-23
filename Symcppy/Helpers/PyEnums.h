@@ -10,6 +10,7 @@ enum class EStatus
 	UndefinedFunction,
 	InvalidArgCount,
 	InvalidArgTypes,
+	SympyUnsuported,
 	Count,
 	Invalid
 };

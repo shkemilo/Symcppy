@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <vector>
+#include <thread>
 
 #include "Helpers/PyEnums.h"
 #include "Helpers/Utils.h"
@@ -17,7 +18,7 @@ public:
 	std::string GetFunctionRaw() const;
 	char GetFunctionVariable() const;
 
-	AnalysisDescription GetAnalysis(bool plot = false) const;
+	AnalysisDescription GetAnalysis() const;
 	
 	EStatus GetZeros(std::vector<double>& zeros) const;
 	EStatus GetDerivative(Function& out) const;

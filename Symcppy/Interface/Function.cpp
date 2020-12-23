@@ -26,7 +26,7 @@ char Function::GetFunctionVariable() const
 	return m_FunctionVariable;
 }
 
-AnalysisDescription Function::GetAnalysis(bool plot) const
+AnalysisDescription Function::GetAnalysis() const
 {
 	Union u;
 	GetDomain(u);
@@ -42,14 +42,10 @@ AnalysisDescription Function::GetAnalysis(bool plot) const
 	EStatus minStatus = GetMin(min);
 	double max;
 	EStatus maxStatus = GetMax(max);
-	Union* monotonicity;
+	Union* monotonicity = nullptr;
 	GetMonotonicity(monotonicity);
-	Union* convexity;
+	Union* convexity = nullptr;
 	GetConvexity(convexity);
-	if (plot)
-	{
-		Plot();
-	}
 
 	return AnalysisDescription(*this, u, periodStatus, period, parity, derrivative, minStatus, min, maxStatus, max, monotonicity, convexity, zeros);
 }
@@ -167,10 +163,7 @@ EStatus Function::GetDomain(Union& out) const
 EStatus Function::Plot() const
 {
 	FunctionResult temp = m_Analyzer.Plot();
-	if (temp.result == EStatus::Sucess)
-	{
 
-	}
 	return temp.result;
 }
 

@@ -118,7 +118,7 @@ private:
 	static constexpr char K_UNION_DELIMITER[] = "U";
 
 public:
-	Union() 
+	Union() : m_UnionString("")
 	{
 	}
 
